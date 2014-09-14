@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace CustomPC
 {
+    [Serializable]
     class CPU :CheckedPart
     {
         public double Clockspeed { get; set; }

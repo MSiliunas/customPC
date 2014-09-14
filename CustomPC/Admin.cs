@@ -15,22 +15,31 @@ namespace CustomPC
         public Admin()
         {
             InitializeComponent();
-            this.panel2.Hide();
         }
 
-        private void btnNew_Click(object sender, EventArgs e)
+        private void btnBack_Click(object sender, EventArgs e)
         {
-            this.panel2.Show();
+            this.Dispose();
         }
 
-        private void btnEdit_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            
+            panelChooseNewCat.Show();
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
+        private void panel1_Paint(object sender, PaintEventArgs e)
         {
-            this.panel2.Hide();
+
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnNewCpu_Click(object sender, EventArgs e)
+        {
+            panelChooseNewCat.Hide();
         }
     }
 }
