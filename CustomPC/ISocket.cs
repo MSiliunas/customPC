@@ -8,6 +8,6 @@ namespace CustomPC
 {
     interface ISocket
     {
-        void isSocketCompatible();
+        bool isSocketCompatible(string socket);
     }
 }

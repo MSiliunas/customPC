@@ -8,8 +8,6 @@ namespace CustomPC
 {
     abstract class CheckedPart :Part, ISocket
     {
-        string socket;
-
-        abstract public void isSocketCompatible();
+        abstract public bool isSocketCompatible(string socket);
     }
 }

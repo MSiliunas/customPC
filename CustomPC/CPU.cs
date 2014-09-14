@@ -8,21 +8,29 @@ namespace CustomPC
 {
     class CPU :CheckedPart
     {
-        string socket;
-        public string Socket
+        public double Clockspeed { get; set; }
+        public int Cores { get; set; }
+        public string Socket { get; set; }
+        public string Name { get; set; }
+
+        public CPU(string name, string socket, double speed, int cores)
         {
-            get { return socket; }
-            set { socket = value; }
+             Socket = socket;
+             Clockspeed = speed;
+             Name = name;
+             Cores = cores;
         }
 
-        public CPU(string socket)
+        override public bool isSocketCompatible(string socket)
         {
-            this.socket = socket;
-        }
-
-        override public void isSocketCompatible()
-        {
-
+            if(Socket == socket)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
