@@ -51,6 +51,7 @@
       <DependentUpon>Admin.cs</DependentUpon>
     </Compile>
     <Compile Include="CheckedPart.cs" />
+    <Compile Include="CPU.cs" />
     <Compile Include="ISocket.cs" />
     <Compile Include="Part.cs" />
     <Compile Include="SetUpPC.cs">
