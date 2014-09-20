@@ -8,28 +8,28 @@ using System.Threading.Tasks;
 
 namespace CustomPC
 {
-    class CPUStorage :Storage
+    class MBStorage :Storage
     {
-        private List<CPU> list = new List<CPU>();
+        public MBStorage() :base()
+        {
+
+        }
+
+        private List<MB> list = new List<MB>();
         public override string DATA_FILENAME
         {
-            get { return "cpustorage.dat"; }
+            get { return "mbstorage.dat"; }
         }
 
-        public CPUStorage()
+        override public void Add(Object obj)
         {
-            Load();
-        }
-
-        override public void Add(object obj)
-        {
-            if(obj.GetType() == typeof(CPU)) {
-                this.list.Add((CPU)obj);
+            if(obj.GetType() == typeof(MB)) {
+                this.list.Add((MB)obj);
                 Save(this.list);
             }
         }
 
-        override public void Load()
+        public override void Load()
         {
             if ((File.Exists(DATA_FILENAME)) && (new FileInfo(DATA_FILENAME).Length != 0))
             {
@@ -38,7 +38,7 @@ namespace CustomPC
                     using (Stream stream = File.Open(DATA_FILENAME, FileMode.Open))
                     {
                         BinaryFormatter bin = new BinaryFormatter();
-                        this.list = (List<CPU>)bin.Deserialize(stream);
+                        this.list = (List<MB>)bin.Deserialize(stream);
                     }
                 }
                 catch (IOException)

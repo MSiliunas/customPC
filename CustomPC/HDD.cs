@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace CustomPC
 {
-    [Serializable]
-    abstract class CheckedPart :Part, ISocket
+    class HDD
     {
-        abstract public bool isSocketCompatible(string socket);
     }
 }
