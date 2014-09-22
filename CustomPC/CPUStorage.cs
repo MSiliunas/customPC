@@ -23,7 +23,8 @@ namespace CustomPC
 
         override public void Add(object obj)
         {
-            if(obj.GetType() == typeof(CPU)) {
+            if (obj.GetType() == typeof(CPU))
+            {
                 this.list.Add((CPU)obj);
                 Save(this.list);
             }
@@ -45,6 +46,19 @@ namespace CustomPC
                 {
                 }
             }
+        }
+
+        public List<String> GetAvailableSockets()
+        {
+            List<String> socketList = new List<String>();
+
+            foreach (CPU cpu in list) {
+                if (!socketList.Contains(cpu.Socket))
+                {
+                    socketList.Add(cpu.Socket);
+                }
+            }
+            return socketList;
         }
     }
 }

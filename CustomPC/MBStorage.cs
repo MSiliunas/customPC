@@ -10,11 +10,6 @@ namespace CustomPC
 {
     class MBStorage :Storage
     {
-        public MBStorage() :base()
-        {
-
-        }
-
         private List<MB> list = new List<MB>();
         public override string DATA_FILENAME
         {
