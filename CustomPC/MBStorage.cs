@@ -16,6 +16,11 @@ namespace CustomPC
             get { return "mbstorage.dat"; }
         }
 
+        public MBStorage()
+        {
+            Load();
+        }
+
         override public void Add(Object obj)
         {
             if(obj.GetType() == typeof(MB)) {
@@ -40,6 +45,56 @@ namespace CustomPC
                 {
                 }
             }
+        }
+
+        public List<string> GetAllSockets()
+        {
+            List<string> socketList = new List<string>();
+
+            foreach (MB mb in list)
+            {
+                if (!socketList.Contains(mb.CpuSocket))
+                {
+                    socketList.Add(mb.CpuSocket);
+                }
+            }
+
+            return socketList;
+        }
+
+        public List<string> GetAllRamTypes()
+        {
+            List<string> ramTypeList = new List<string>();
+
+            foreach (MB mb in list)
+            {
+                if (!ramTypeList.Contains(mb.RamType))
+                {
+                    ramTypeList.Add(mb.RamType);
+                }
+            }
+
+            return ramTypeList;
+        }
+
+        public List<string> GetAllGpuTypes()
+        {
+            List<string> gpuTypeList = new List<string>();
+
+            foreach (MB mb in list)
+            {
+                if (!gpuTypeList.Contains(mb.GpuType))
+                {
+                    gpuTypeList.Add(mb.GpuType);
+                }
+            }
+
+            return gpuTypeList;
+        }
+
+        public List<MB> GetAll()
+        {
+            return this.list;
         }
     }
 }

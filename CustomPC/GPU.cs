@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace CustomPC
 {
     [Serializable]
-    class GPU
+    class GPU :CheckedPart
     {
         public string Name { get; set; }
         public string Type { get; set; }
@@ -20,6 +20,16 @@ namespace CustomPC
             this.Type = type;
             this.Speed = speed;
             this.Memory = memory;
+        }
+
+        public override bool isSocketCompatible(string socket)
+        {
+            return (this.Type == socket ? true : false);
+        }
+
+        public override string ToString()
+        {
+            return this.Name;
         }
     }
 }

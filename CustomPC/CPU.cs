@@ -24,14 +24,12 @@ namespace CustomPC
 
         override public bool isSocketCompatible(string socket)
         {
-            if(Socket == socket)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return (this.Socket == socket ? true : false);
+        }
+
+        public override string ToString()
+        {
+            return this.Name;
         }
     }
 }

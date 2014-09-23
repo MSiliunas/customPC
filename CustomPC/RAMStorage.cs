@@ -16,6 +16,11 @@ namespace CustomPC
             get { return "ramstorage.dat"; }
         }
 
+        public RAMStorage()
+        {
+            Load();
+        }
+
         public override void Add(object obj)
         {
             if (obj.GetType() == typeof(RAM))
@@ -41,6 +46,41 @@ namespace CustomPC
                 {
                 }
             }
+        }
+
+        public List<string> GetAllTypes()
+        {
+            List<string> ramTypes = new List<string>();
+
+            foreach (RAM ram in list)
+            {
+                if (!ramTypes.Contains(ram.Type))
+                {
+                    ramTypes.Add(ram.Type);
+                }
+            }
+
+            return ramTypes;
+        }
+
+        public List<string> GetAllSpeeds()
+        {
+            List<string> speedsList = new List<string>();
+
+            foreach (RAM ram in list)
+            {
+                if (!speedsList.Contains(Convert.ToString(ram.Speed)))
+                {
+                    speedsList.Add(Convert.ToString(ram.Speed));
+                }
+            }
+
+            return speedsList;
+        }
+
+        public List<RAM> GetAll()
+        {
+            return this.list;
         }
     }
 }

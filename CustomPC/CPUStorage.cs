@@ -60,5 +60,10 @@ namespace CustomPC
             }
             return socketList;
         }
+
+        public List<CPU> GetAll()
+        {
+            return list;
+        }
     }
 }

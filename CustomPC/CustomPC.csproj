@@ -62,6 +62,8 @@
     <Compile Include="MB.cs" />
     <Compile Include="MBStorage.cs" />
     <Compile Include="Part.cs" />
+    <Compile Include="PC.cs" />
+    <Compile Include="PcPrerequisites.cs" />
     <Compile Include="RAM.cs" />
     <Compile Include="RAMStorage.cs" />
     <Compile Include="SetUpPC.cs">

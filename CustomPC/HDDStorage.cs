@@ -16,6 +16,11 @@ namespace CustomPC
             get { return "hddstorage.dat"; }
         }
 
+        public HDDStorage()
+        {
+            Load();
+        }
+
         public override void Add(object obj)
         {
             if (obj.GetType() == typeof(HDD))
@@ -41,6 +46,11 @@ namespace CustomPC
                 {
                 }
             }
+        }
+
+        public List<HDD> GetAll()
+        {
+            return this.list;
         }
     }
 }

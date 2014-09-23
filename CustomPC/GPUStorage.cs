@@ -47,5 +47,10 @@ namespace CustomPC
                 }
             }
         }
+
+        public List<GPU> GetAll()
+        {
+            return list;
+        }
     }
 }

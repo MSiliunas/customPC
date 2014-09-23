@@ -99,12 +99,16 @@
             this.label21 = new System.Windows.Forms.Label();
             this.ramCancel = new System.Windows.Forms.Button();
             this.label22 = new System.Windows.Forms.Label();
+            this.panelManage = new System.Windows.Forms.Panel();
+            this.listParts = new System.Windows.Forms.ListView();
+            this.btnCloseList = new System.Windows.Forms.Button();
             this.panelChooseNewCat.SuspendLayout();
             this.panelNewCPU.SuspendLayout();
             this.panelNewGPU.SuspendLayout();
             this.panelNewMB.SuspendLayout();
             this.panelNewHDD.SuspendLayout();
             this.panelNewRam.SuspendLayout();
+            this.panelManage.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnBack
@@ -145,6 +149,7 @@
             this.btnEdit.TabIndex = 3;
             this.btnEdit.Text = "Manage parts";
             this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // panelChooseNewCat
             // 
@@ -494,6 +499,7 @@
             this.button1.TabIndex = 10;
             this.button1.Text = "Add";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.btnAddNewMB_Click);
             // 
             // mbGPU
             // 
@@ -802,11 +808,41 @@
             this.label22.TabIndex = 0;
             this.label22.Text = "Enter a new RAM";
             // 
+            // panelManage
+            // 
+            this.panelManage.Controls.Add(this.listParts);
+            this.panelManage.Controls.Add(this.btnCloseList);
+            this.panelManage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelManage.Location = new System.Drawing.Point(0, 0);
+            this.panelManage.Name = "panelManage";
+            this.panelManage.Size = new System.Drawing.Size(317, 360);
+            this.panelManage.TabIndex = 16;
+            this.panelManage.Visible = false;
+            // 
+            // listParts
+            // 
+            this.listParts.Location = new System.Drawing.Point(13, 13);
+            this.listParts.Name = "listParts";
+            this.listParts.Size = new System.Drawing.Size(292, 315);
+            this.listParts.TabIndex = 1;
+            this.listParts.UseCompatibleStateImageBehavior = false;
+            // 
+            // btnCloseList
+            // 
+            this.btnCloseList.Location = new System.Drawing.Point(121, 334);
+            this.btnCloseList.Name = "btnCloseList";
+            this.btnCloseList.Size = new System.Drawing.Size(75, 23);
+            this.btnCloseList.TabIndex = 0;
+            this.btnCloseList.Text = "Close";
+            this.btnCloseList.UseVisualStyleBackColor = true;
+            this.btnCloseList.Click += new System.EventHandler(this.btnCloseList_Click);
+            // 
             // Admin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(317, 360);
+            this.Controls.Add(this.panelManage);
             this.Controls.Add(this.panelNewRam);
             this.Controls.Add(this.panelNewHDD);
             this.Controls.Add(this.panelNewMB);
@@ -830,6 +866,7 @@
             this.panelNewHDD.PerformLayout();
             this.panelNewRam.ResumeLayout(false);
             this.panelNewRam.PerformLayout();
+            this.panelManage.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -908,5 +945,8 @@
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Button ramCancel;
         private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Panel panelManage;
+        private System.Windows.Forms.Button btnCloseList;
+        private System.Windows.Forms.ListView listParts;
     }
 }
