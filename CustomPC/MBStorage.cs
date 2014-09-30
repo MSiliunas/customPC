@@ -1,100 +1,111 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace CustomPC
 {
-    class MBStorage :Storage
-    {
-        private List<MB> list = new List<MB>();
-        public override string DATA_FILENAME
-        {
-            get { return "mbstorage.dat"; }
-        }
+	class MBStorage : Storage
+	{
+		private List<MB> _list = new List<MB>();
+		public override string DataFilename
+		{
+			get { return "mbstorage.dat"; }
+		}
 
-        public MBStorage()
-        {
-            Load();
-        }
+		public MBStorage()
+		{
+			Load();
+		}
 
-        override public void Add(Object obj)
-        {
-            if(obj.GetType() == typeof(MB)) {
-                this.list.Add((MB)obj);
-                Save(this.list);
-            }
-        }
+		override public void Add(Object obj)
+		{
+			if (obj.GetType() == typeof(MB))
+			{
+				_list.Add((MB)obj);
+				Save(_list);
+			}
+		}
 
-        public override void Load()
-        {
-            if ((File.Exists(DATA_FILENAME)) && (new FileInfo(DATA_FILENAME).Length != 0))
-            {
-                try
-                {
-                    using (Stream stream = File.Open(DATA_FILENAME, FileMode.Open))
-                    {
-                        BinaryFormatter bin = new BinaryFormatter();
-                        this.list = (List<MB>)bin.Deserialize(stream);
-                    }
-                }
-                catch (IOException)
-                {
-                }
-            }
-        }
+		public override void Load()
+		{
+			if ((File.Exists(DataFilename)) && (new FileInfo(DataFilename).Length != 0))
+			{
+				try
+				{
+					using (Stream stream = File.Open(DataFilename, FileMode.Open))
+					using (DESCryptoServiceProvider crypt = new DESCryptoServiceProvider())
+					{
+						BinaryFormatter bin = new BinaryFormatter();
 
-        public List<string> GetAllSockets()
-        {
-            List<string> socketList = new List<string>();
 
-            foreach (MB mb in list)
-            {
-                if (!socketList.Contains(mb.CpuSocket))
-                {
-                    socketList.Add(mb.CpuSocket);
-                }
-            }
+						crypt.Key = ASCIIEncoding.ASCII.GetBytes("ABCDEFGH");
+						crypt.IV = ASCIIEncoding.ASCII.GetBytes("ABCDEFGH");
 
-            return socketList;
-        }
+						CryptoStream crStream = new CryptoStream(stream,
+	crypt.CreateDecryptor(), CryptoStreamMode.Read);
 
-        public List<string> GetAllRamTypes()
-        {
-            List<string> ramTypeList = new List<string>();
+						_list = (List<MB>)bin.Deserialize(crStream);
 
-            foreach (MB mb in list)
-            {
-                if (!ramTypeList.Contains(mb.RamType))
-                {
-                    ramTypeList.Add(mb.RamType);
-                }
-            }
+						crStream.Close();
+					}
+				}
+				catch (Exception)
+				{
+				}
+			}
+		}
 
-            return ramTypeList;
-        }
+		public List<string> GetAllSockets()
+		{
+			List<string> socketList = new List<string>();
 
-        public List<string> GetAllGpuTypes()
-        {
-            List<string> gpuTypeList = new List<string>();
+			foreach (MB mb in _list)
+			{
+				if (!socketList.Contains(mb.CpuSocket))
+				{
+					socketList.Add(mb.CpuSocket);
+				}
+			}
 
-            foreach (MB mb in list)
-            {
-                if (!gpuTypeList.Contains(mb.GpuType))
-                {
-                    gpuTypeList.Add(mb.GpuType);
-                }
-            }
+			return socketList;
+		}
 
-            return gpuTypeList;
-        }
+		public List<string> GetAllRamTypes()
+		{
+			List<string> ramTypeList = new List<string>();
 
-        public List<MB> GetAll()
-        {
-            return this.list;
-        }
-    }
+			foreach (MB mb in _list)
+			{
+				if (!ramTypeList.Contains(mb.RamType))
+				{
+					ramTypeList.Add(mb.RamType);
+				}
+			}
+
+			return ramTypeList;
+		}
+
+		public List<string> GetAllGpuTypes()
+		{
+			List<string> gpuTypeList = new List<string>();
+
+			foreach (MB mb in _list)
+			{
+				if (!gpuTypeList.Contains(mb.GpuType))
+				{
+					gpuTypeList.Add(mb.GpuType);
+				}
+			}
+
+			return gpuTypeList;
+		}
+
+		public List<MB> GetAll()
+		{
+			return this._list;
+		}
+	}
 }

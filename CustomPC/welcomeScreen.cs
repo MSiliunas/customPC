@@ -10,21 +10,21 @@ using System.Windows.Forms;
 
 namespace CustomPC
 {
-    public partial class welcomeScreen : Form
-    {
-        public welcomeScreen()
-        {
-            InitializeComponent();
-        }
+	public partial class welcomeScreen : Form
+	{
+		public welcomeScreen()
+		{
+			InitializeComponent();
+		}
 
-        private void btnAdmin_Click(object sender, EventArgs e)
-        {
-            new Admin().Show();
-        }
+		private void btnAdmin_Click(object sender, EventArgs e)
+		{
+			new Admin().Show();
+		}
 
-        private void btnStart_Click(object sender, EventArgs e)
-        {
-            new SetUpPC().Show();
-        }
-    }
+		private void btnStart_Click(object sender, EventArgs e)
+		{
+			new SetUpPC().Show();
+		}
+	}
 }

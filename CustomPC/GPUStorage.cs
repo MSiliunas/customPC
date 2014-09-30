@@ -1,56 +1,66 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace CustomPC
 {
-    class GPUStorage :Storage
-    {
-        private List<GPU> list = new List<GPU>();
-        public override string DATA_FILENAME
-        {
-            get { return "gpustorage.dat"; }
-        }
+	class GPUStorage : Storage
+	{
+		private List<GPU> _list = new List<GPU>();
+		public override string DataFilename
+		{
+			get { return "gpustorage.dat"; }
+		}
 
-        public GPUStorage()
-        {
-            Load();
-        }
+		public GPUStorage()
+		{
+			Load();
+		}
 
-        public override void Add(object obj)
-        {
-            if (obj.GetType() == typeof(GPU))
-            {
-                this.list.Add((GPU)obj);
-                Save(this.list);
-            }
-        }
+		public override void Add(object obj)
+		{
+			if (obj.GetType() == typeof(GPU))
+			{
+				_list.Add((GPU)obj);
+				Save(_list);
+			}
+		}
 
-        public override void Load()
-        {
-            if ((File.Exists(DATA_FILENAME)) && (new FileInfo(DATA_FILENAME).Length != 0))
-            {
-                try
-                {
-                    using (Stream stream = File.Open(DATA_FILENAME, FileMode.Open))
-                    {
-                        BinaryFormatter bin = new BinaryFormatter();
-                        this.list = (List<GPU>)bin.Deserialize(stream);
-                    }
-                }
-                catch (IOException)
-                {
-                }
-            }
-        }
+		public override void Load()
+		{
+			if ((File.Exists(DataFilename)) && (new FileInfo(DataFilename).Length != 0))
+			{
+				try
+				{
+					using (Stream stream = File.Open(DataFilename, FileMode.Open))
+					using (DESCryptoServiceProvider crypt = new DESCryptoServiceProvider())
+					{
+						BinaryFormatter bin = new BinaryFormatter();
 
-        public List<GPU> GetAll()
-        {
-            return list;
-        }
-    }
+
+						crypt.Key = ASCIIEncoding.ASCII.GetBytes("ABCDEFGH");
+						crypt.IV = ASCIIEncoding.ASCII.GetBytes("ABCDEFGH");
+
+						CryptoStream crStream = new CryptoStream(stream,
+	crypt.CreateDecryptor(), CryptoStreamMode.Read);
+
+						_list = (List<GPU>)bin.Deserialize(crStream);
+
+						crStream.Close();
+					}
+				}
+				catch (Exception)
+				{
+				}
+			}
+		}
+
+		public List<GPU> GetAll()
+		{
+			return _list;
+		}
+	}
 }
